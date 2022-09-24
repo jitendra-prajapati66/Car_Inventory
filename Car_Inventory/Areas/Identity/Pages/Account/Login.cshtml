@@ -1,0 +1,93 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+
+
+<div class="container mt-4 shadow-lg bg-white" style="max-width:900px">
+    <div class="row">
+        <div class="col-1 col-lg-6 m-0 p-0">
+
+            <img src="~/images/login.jpg" style="width:100%;height:100%" />
+
+        </div>
+        <div class=" bg-white col-12 col-lg-6 m-0 p-0 row" style="align-items:center">
+            <div class="col-12 row m-0 p-0" style="justify-content:center">
+                <div class="col-8 mt-3">
+                    <div class="text-start " style="">
+                        <h4>@ViewData["Title"]</h4>
+                    </div>
+                    <form id="account" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group" style="transition:all 1s">
+
+                            <input asp-for="Input.Email" class="form-control" autocomplete="off" placeholder="username or email" />
+
+                        </div>
+                        <div class="form-group" style="transition:all 1s">
+
+                            <input asp-for="Input.Password" class="form-control" placeholder="password" />
+                        </div>
+                        <div class="form-group " style="align-items:center">
+                            <div class="checkbox">
+                                <label asp-for="Input.RememberMe">
+                                    <input asp-for="Input.RememberMe" />
+                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group" style="align-items:center">
+                            <button type="submit" class="btn btn-success p-1" style="width:100%">Log in</button>
+                        </div>
+                        <div class="form-group row" style="align-items:center">
+                            <p class="col-6 ">
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register Now</a>
+                            </p>
+                            <p class=" col-6 text-right mt-0">
+                                <a id="forgot-password" class="text-dark" asp-page="./ForgotPassword">Forgot password?</a>
+                            </p>
+                        </div>
+                    </form>
+                    <div class="text-center ">
+                        <h6>or</h6>
+                        @{
+                            if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                            {
+                                <div>
+                                    <p>
+                                        There are no external authentication services configured.
+                                    </p>
+                                </div>
+                            }
+                            else
+                            {
+                                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                    <div>
+                                        <p>
+                                            @foreach (var provider in Model.ExternalLogins)
+                                            {
+                                                <button type="submit" class="btn btn-block facebook-btn"
+                                                name="provider" value="@provider.Name"
+                                                title="Log in using your @provider.DisplayName account">
+                                                    <i class="fa-brands fa-@provider.DisplayName.ToLower()"></i>&nbsp;&nbsp; Facebook
+                                                </button>
+                                            }
+                                        </p>
+                                    </div>
+                                </form>
+                            }
+                        }
+                        </>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+    }

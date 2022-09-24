@@ -1,0 +1,65 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container p-3  bg-white">
+    <div class="row">
+        <div class="col-6">
+            <div class="col-12 row" style="justify-content:center;align-items:center">
+                <div class="col-12 p-2">
+                    <div class="text-start " style="">
+                        <h4>@ViewData["Title"]</h4>
+                    </div>
+                    <form asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <input asp-for="Input.FirstName" autocomplete="off" placeholder="Firstname" class="form-control" />
+                            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input asp-for="Input.LastName" autocomplete="off" placeholder="LastName" class="form-control" />
+                            <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+
+                            <input asp-for="Input.Email" autocomplete="off" class="form-control" placeholder="Email" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <input asp-for="Input.Password" autocomplete="off" class="form-control" placeholder="password" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+
+                            <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="confirm pasowrd" />
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="text-center">
+
+                            <button type="submit" class="btn btn-warning" style="width:70%">Register</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+<script>
+    const phoneInputField=document.getElementById("Phone");
+    const phoneInput=window.intlTelInput(phoneInputField,{
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+</script>
+}
+
