@@ -72,7 +72,7 @@ namespace Car_Inventory
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            //init.initialize();
+            init.initialize();
             app.UseSession();
             app.UseEndpoints(endpoints =>
             {
